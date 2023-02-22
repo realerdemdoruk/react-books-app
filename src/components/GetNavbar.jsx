@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const GetNavbar = () => {
   return (
-    <div className="container bg-light sticky-top">
+    <Container fluid className=" bg-light sticky-top">
       <div className="w-100 justify-content-center d-flex">
         <Navbar bg="light" expand="lg">
           <Container className="mx-auto  text-center ">
@@ -34,7 +34,7 @@ const GetNavbar = () => {
           </Container>
         </Navbar>
       </div>
-    </div>
+    </Container>
   );
 };
 
