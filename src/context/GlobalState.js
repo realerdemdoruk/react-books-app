@@ -7,6 +7,13 @@ export const GlobalProvider = (props) => {
   const [books, setBooks] = useState([]);
   const [readed, setReaded] = useState([]);
 
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  function handleBookClick(books) {
+    setSelectedBook(books);
+    // Bu kısımda seçilen kitabın id'sini vs. kullanarak yeni component'e yönlendirebilirsiniz.
+  }
+
   const fetchBooks = async () => {
     const result = await axios
       .get(
@@ -26,6 +33,10 @@ export const GlobalProvider = (props) => {
         setBooks,
         readed,
         setReaded,
+
+        selectedBook,
+        setSelectedBook,
+        handleBookClick,
 
         fetchBooks,
       }}

@@ -11,8 +11,8 @@ const Home = () => {
   }, [search]);
 
   return (
-    <Container className="d-flex row">
-      <div className=" d-flex">
+    <Container className="">
+      <div className=" ">
         <div className="col">
           <input
             type="text"
@@ -24,9 +24,9 @@ const Home = () => {
       </div>
 
       {search ? (
-        <div className="d-flex">
+        <Container className="d-flex flex-wrap  mt-5  ">
           <BookCard />
-        </div>
+        </Container>
       ) : (
         <div>
           <h1>Search to Book!</h1>

@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 const GetNavbar = () => {
   return (
@@ -26,7 +27,7 @@ const GetNavbar = () => {
                 </Nav.Link>
                 <Nav.Link>
                   <Link className="NavLink" to="/toread">
-                    <h6>To be Read</h6>
+                    {/* <h6>To be Read</h6> */} <AiOutlineHeart />
                   </Link>
                 </Nav.Link>
               </Nav>

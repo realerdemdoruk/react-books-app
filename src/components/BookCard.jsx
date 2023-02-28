@@ -6,46 +6,71 @@ import Readed from '../page/Readed';
 import { GlobalContext } from '../context/GlobalState';
 
 const BookCard = () => {
-  const { books, readed, setReaded } = useContext(GlobalContext);
+  const {
+    book,
+    books,
+    readed,
+    setReaded,
 
+    handleBookSelect,
+
+    selectedBook,
+    setSelectedBook,
+    handleBookClick,
+  } = useContext(GlobalContext);
+
+  console.log(books);
   return (
     <div
       className="d-flex
-        
-    "
-      style={{
-        flexFlow: 'wrap',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
+      flex-wrap
+      gap-3 
+     "
     >
-      {books.map((book) => {
-        return (
-          <div className="row d-flex">
-            <div className="col-4">
-              <div className="card ">
-                <div className="card-body">
-                  <h5 className="card-title">{book.volumeInfo.title}</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">
-                    {book.volumeInfo.subtitle}
-                  </h6>
-                  <p className="card-text">{book.volumeInfo.description}</p>
-                  <img src={book.thumbnail} alt="" />
-                  <p>Authors: {book.volumeInfo.authors}</p>
+      {books &&
+        books.map((book) => {
+          return (
+            <div className="col-3 d-flex flex-wrap">
+              <div className="col     ">
+                <div className="card ">
+                  <div className="card-body ">
+                    {/* <img src={book.volumeInfo.imageLinks.thumbnail} alt="" /> */}
 
-                  <a href="#" className="card-link">
-                    <AiOutlineHeart />
-                  </a>
-                  <a href="#" className="card-link">
-                    Readed
-                  </a>
+                    <div className="d-flex justify-content-center">
+                      {
+                        <img
+                          src={
+                            book.volumeInfo.imageLinks
+                              ? book.volumeInfo.imageLinks.thumbnail
+                              : 'https://via.placeholder.com/150'
+                          }
+                          alt=""
+                        />
+                      }
+                    </div>
+
+                    <h5 className="card-title mt-2 text-center">
+                      {book.volumeInfo.title}
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      {book.volumeInfo.subtitle}
+                    </h6>
+
+                    <p>Authors: {book.volumeInfo.authors}</p>
+                    <div className="d-flex justify-content-evenly">
+                      <a href="#" className="card-link">
+                        <AiOutlineHeart onClick={() => handleBookClick(book)} />
+                      </a>
+                      <a href="#" className="card-link">
+                        Readed
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-      {/* <Readed readed={readed} /> */}
+          );
+        })}
     </div>
   );
 };
