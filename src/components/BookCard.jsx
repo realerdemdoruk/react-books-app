@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // react icon
 
 import { AiOutlineHeart } from 'react-icons/ai';
 import Readed from '../page/Readed';
+import { GlobalContext } from '../context/GlobalState';
 
-const BookCard = ({ books, readed, setReaded }) => {
-  const addReaded = (books) => {
-    setReaded([...readed, books]);
-    console.log(readed);
-  };
+const BookCard = () => {
+  const { books, readed, setReaded } = useContext(GlobalContext);
 
   return (
     <div
@@ -36,11 +34,7 @@ const BookCard = ({ books, readed, setReaded }) => {
                   <p>Authors: {book.volumeInfo.authors}</p>
 
                   <a href="#" className="card-link">
-                    <AiOutlineHeart
-                      onClick={() => {
-                        addReaded(books);
-                      }}
-                    />
+                    <AiOutlineHeart />
                   </a>
                   <a href="#" className="card-link">
                     Readed

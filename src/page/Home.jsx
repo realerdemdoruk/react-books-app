@@ -1,36 +1,17 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import BookCard from '../components/BookCard';
 import Readed from './Readed';
+import { GlobalContext } from '../context/GlobalState';
 
 const Home = () => {
-  const [search, setSearch] = useState('');
-  const [books, setBooks] = useState([]);
-  const [readed, setReaded] = useState([]);
-
+  const { search, setSearch, fetchBooks } = useContext(GlobalContext);
   useEffect(() => {
-    const fetchBooks = async () => {
-      const result = await axios
-        .get(
-          ` https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBuIRxGUvT72g_xACmH8NkaPVS1kF45PFM`
-        )
-        .then((res) => {
-          console.log(res.data.items);
-          setBooks(res.data.items);
-        });
-    };
     fetchBooks();
   }, [search]);
 
   return (
-    <Container
-      className="d-flex row
-
- 
-    
-    "
-    >
+    <Container className="d-flex row">
       <div className=" d-flex">
         <div className="col">
           <input
@@ -44,11 +25,11 @@ const Home = () => {
 
       {search ? (
         <div className="d-flex">
-          <BookCard books={books} readed={readed} setReaded={setReaded} />
+          <BookCard />
         </div>
       ) : (
-        <div className="">
-          <h1 className="">Search to Book!</h1>
+        <div>
+          <h1>Search to Book!</h1>
         </div>
       )}
     </Container>
