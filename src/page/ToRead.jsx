@@ -5,7 +5,7 @@ import { IoCloseOutline } from 'react-icons/io5';
 import { Container } from 'react-bootstrap';
 
 const ToRead = () => {
-  const { selectedBook } = useContext(GlobalContext);
+  const { selectedBook, readed } = useContext(GlobalContext);
 
   return (
     <Container>

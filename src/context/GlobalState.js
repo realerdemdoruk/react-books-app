@@ -7,11 +7,10 @@ export const GlobalProvider = (props) => {
   const [books, setBooks] = useState([]);
   const [readed, setReaded] = useState([]);
 
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedBook, setSelectedBook] = useState([]);
 
   function handleBookClick(books) {
     setSelectedBook(books);
-    // Bu kısımda seçilen kitabın id'sini vs. kullanarak yeni component'e yönlendirebilirsiniz.
   }
 
   const fetchBooks = async () => {
@@ -31,9 +30,10 @@ export const GlobalProvider = (props) => {
         setSearch,
         books,
         setBooks,
-        readed,
-        setReaded,
 
+        readed,
+
+        setReaded,
         selectedBook,
         setSelectedBook,
         handleBookClick,

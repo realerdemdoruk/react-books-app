@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-// react icon
-
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai'; // react icon
 import Readed from '../page/Readed';
 import { GlobalContext } from '../context/GlobalState';
 
 const BookCard = () => {
   const {
-    book,
     books,
     readed,
     setReaded,
@@ -19,7 +16,8 @@ const BookCard = () => {
     handleBookClick,
   } = useContext(GlobalContext);
 
-  console.log(books);
+  // console.log(books);
+
   return (
     <div
       className="d-flex
@@ -31,7 +29,7 @@ const BookCard = () => {
         books.map((book) => {
           return (
             <div className="col-3 d-flex flex-wrap">
-              <div className="col     ">
+              <div className="col">
                 <div className="card ">
                   <div className="card-body ">
                     {/* <img src={book.volumeInfo.imageLinks.thumbnail} alt="" /> */}
@@ -62,7 +60,7 @@ const BookCard = () => {
                         <AiOutlineHeart onClick={() => handleBookClick(book)} />
                       </a>
                       <a href="#" className="card-link">
-                        Readed
+                        {/* Readed */}
                       </a>
                     </div>
                   </div>

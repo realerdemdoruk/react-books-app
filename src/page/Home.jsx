@@ -12,11 +12,17 @@ const Home = () => {
 
   return (
     <Container className="">
-      <div className=" ">
+      <div className="row">
+        <div className="col"></div>
+        <div className="col"></div>
         <div className="col">
           <input
             type="text"
             placeholder="Search to Book"
+            className="
+            p-2
+            rounded
+            "
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
