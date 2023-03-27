@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import BookCard from '../components/BookCard';
-import Readed from './Readed';
 import { GlobalContext } from '../context/GlobalState';
 
 const Home = () => {
@@ -30,7 +29,7 @@ const Home = () => {
       </div>
 
       {search ? (
-        <Container className="d-flex flex-wrap  mt-5  ">
+        <Container className="d-flex flex-wrap mt-5">
           <BookCard />
         </Container>
       ) : (

@@ -13,7 +13,11 @@ const GetNavbar = () => {
         <Navbar bg="light" expand="lg">
           <Container className="mx-auto  text-center ">
             <Nav.Link>
-              <Link className="NavLink" to="/">
+              <Link
+                className="NavLink"
+                to="/"
+                style={{ textDecoration: 'none' }}
+              >
                 <h6>Home</h6>
               </Link>
             </Nav.Link>
@@ -21,13 +25,17 @@ const GetNavbar = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link>
-                  <Link className="NavLink" to="/readed">
+                  <Link
+                    className="NavLink"
+                    to="/readed"
+                    style={{ textDecoration: 'none' }}
+                  >
                     <h6>Readed</h6>
                   </Link>
                 </Nav.Link>
                 <Nav.Link>
                   <Link className="NavLink" to="/toread">
-                    {/* <h6>To be Read</h6> */} <AiOutlineHeart />
+                    <AiOutlineHeart />
                   </Link>
                 </Nav.Link>
               </Nav>

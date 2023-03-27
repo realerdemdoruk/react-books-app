@@ -5,12 +5,37 @@ export const GlobalContext = createContext();
 export const GlobalProvider = (props) => {
   const [search, setSearch] = useState('React');
   const [books, setBooks] = useState([]);
-  const [readed, setReaded] = useState([]);
 
   const [selectedBook, setSelectedBook] = useState([]);
 
+  const [readedBook, setReadedBook] = useState([]);
+
   function handleBookClick(books) {
-    setSelectedBook(books);
+    const isExist = selectedBook.find((book) => book.id === books.id);
+    if (isExist) {
+      alert('Bu kitap zaten seçilmiş');
+    }
+    if (!selectedBook.includes(books)) {
+      setSelectedBook([...selectedBook, books]);
+    }
+  }
+
+  function handleDeleteBook(id) {
+    setSelectedBook(selectedBook.filter((book) => book.id !== id));
+  }
+
+  function handleReadedBook(books) {
+    const isExist = readedBook.find((book) => book.id === books.id);
+    if (isExist) {
+      alert('Bu kitap zaten okunmuş');
+    }
+    if (!readedBook.includes(books)) {
+      setReadedBook([...readedBook, books]);
+    }
+  }
+
+  function handleDeleteReadedBook(id) {
+    setReadedBook(readedBook.filter((book) => book.id !== id));
   }
 
   const fetchBooks = async () => {
@@ -30,15 +55,15 @@ export const GlobalProvider = (props) => {
         setSearch,
         books,
         setBooks,
-
-        readed,
-
-        setReaded,
+        handleDeleteBook,
         selectedBook,
         setSelectedBook,
         handleBookClick,
-
         fetchBooks,
+
+        readedBook,
+        handleReadedBook,
+        handleDeleteReadedBook,
       }}
     >
       {props.children}

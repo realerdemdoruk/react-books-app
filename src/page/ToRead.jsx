@@ -5,90 +5,102 @@ import { IoCloseOutline } from 'react-icons/io5';
 import { Container } from 'react-bootstrap';
 
 const ToRead = () => {
-  const { selectedBook, readed } = useContext(GlobalContext);
-
+  const { selectedBook, handleDeleteBook } = useContext(GlobalContext);
   return (
-    <Container>
+    <Container
+      className="d-flex 
+    justify-content-evenly 
+    mt-5
+    flex-wrap
+    gap-5
+    "
+    >
       {selectedBook ? (
-        <div className="col-3 d-flex flex-wrap">
-          <div className="col     ">
-            <div className="card ">
-              <div className="card-body ">
-                <div className="d-flex justify-content-center">
-                  {
-                    <img
-                      src={
-                        selectedBook.volumeInfo.imageLinks
-                          ? selectedBook.volumeInfo.imageLinks.thumbnail
-                          : 'https://via.placeholder.com/150'
-                      }
-                      alt=""
+        selectedBook.map((item) => (
+          <div className="col gap-5 d-flex flex-wrap">
+            <div className="col">
+              <div className="card ">
+                <div className="card-body">
+                  <div className="d-flex justify-content-center">
+                    {
+                      <img
+                        src={
+                          item.volumeInfo.imageLinks
+                            ? item.volumeInfo.imageLinks.thumbnail
+                            : 'https://via.placeholder.com/150'
+                        }
+                      />
+                    }
+                  </div>
+                  <h5 className="card-title text-center mt-2">
+                    {item.volumeInfo.title}
+                  </h5>
+
+                  <p>
+                    {item.volumeInfo.description
+                      ? item.volumeInfo.description
+                      : 'No Description'}
+                  </p>
+
+                  <h6 className="card-subtitle mb-2 text-muted">
+                    {item.volumeInfo.subtitle}
+                  </h6>
+                  <p className="card-text">{item.volumeInfo.description}</p>
+
+                  <p>
+                    Publis Date:
+                    {item.volumeInfo.publishedDate
+                      ? item.volumeInfo.publishedDate
+                      : 'No Date'}
+                  </p>
+
+                  <p>
+                    Categories:
+                    {item.volumeInfo.categories
+                      ? item.volumeInfo.categories
+                      : 'No Categories'}
+                  </p>
+
+                  <p>
+                    Page Count:
+                    {item.volumeInfo.pageCount
+                      ? item.volumeInfo.pageCount
+                      : 'No Page Count'}
+                  </p>
+
+                  <p>
+                    Language:
+                    {item.volumeInfo.language
+                      ? item.volumeInfo.language
+                      : 'No Language'}
+                  </p>
+
+                  <p>
+                    Authors:
+                    {item.volumeInfo.authors
+                      ? item.volumeInfo.authors
+                      : 'No Author'}
+                  </p>
+
+                  <div
+                    className="d-flex justify-content-center
+              
+                    "
+                  >
+                    <IoCloseOutline
+                      style={{
+                        color: 'red',
+                        fontSize: '30px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => handleDeleteBook(item.id)}
                     />
-                  }
-                </div>
-                <h5 className="card-title text-center">
-                  {selectedBook.volumeInfo.title}
-                </h5>
-
-                <p>
-                  {selectedBook.volumeInfo.description
-                    ? selectedBook.volumeInfo.description
-                    : 'No Description'}
-                </p>
-
-                <h6 className="card-subtitle mb-2 text-muted">
-                  {selectedBook.volumeInfo.subtitle}
-                </h6>
-                <p className="card-text">
-                  {selectedBook.volumeInfo.description}
-                </p>
-
-                <p>
-                  Publis Date:
-                  {selectedBook.volumeInfo.publishedDate
-                    ? selectedBook.volumeInfo.publishedDate
-                    : 'No Date'}
-                </p>
-
-                <p>
-                  Categories:
-                  {selectedBook.volumeInfo.categories
-                    ? selectedBook.volumeInfo.categories
-                    : 'No Categories'}
-                </p>
-
-                <p>
-                  Page Count:
-                  {selectedBook.volumeInfo.pageCount
-                    ? selectedBook.volumeInfo.pageCount
-                    : 'No Page Count'}
-                </p>
-
-                <p>
-                  Language:
-                  {selectedBook.volumeInfo.language
-                    ? selectedBook.volumeInfo.language
-                    : 'No Language'}
-                </p>
-
-                <p>
-                  Authors:
-                  {selectedBook.volumeInfo.authors
-                    ? selectedBook.volumeInfo.authors
-                    : 'No Author'}
-                </p>
-
-                <div
-                  className="
-                      d-flex
-                      justify-content-center"
-                >
-                  <IoCloseOutline />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        ))
       ) : (
         <div>
           <h1>Search to Book!</h1>
