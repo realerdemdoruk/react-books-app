@@ -1,4 +1,3 @@
-import './App.css';
 import GetNavbar from './components/GetNavbar';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalProvider } from './context/GlobalState';

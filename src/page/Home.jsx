@@ -1,16 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import BookCard from '../components/BookCard';
 import { GlobalContext } from '../context/GlobalState';
 
 const Home = () => {
-  const { search, setSearch, fetchBooks } = useContext(GlobalContext);
-  useEffect(() => {
-    fetchBooks();
-  }, [search]);
+  const { search, setSearch, books, handleBookClick, handleReadedBook } =
+    useContext(GlobalContext);
 
   return (
-    <Container className="">
+    <Container
+      className="
+    d-flex
+    flex-column
+    justify-content-center
+    gap-3
+    "
+    >
       <div className="row">
         <div className="col"></div>
         <div className="col"></div>
@@ -28,15 +33,32 @@ const Home = () => {
         </div>
       </div>
 
-      {search ? (
-        <Container className="d-flex flex-wrap mt-5">
-          <BookCard />
-        </Container>
-      ) : (
-        <div>
-          <h1>Search to Book!</h1>
-        </div>
-      )}
+      <div
+        className="row 
+      d-flex
+      flex-wrap
+      justify-content-center
+      gap-5
+      "
+      >
+        {search ? (
+          <>
+            {books.map((item) => (
+              <BookCard
+                key={item.id}
+                item={item}
+                buttonText="Readed"
+                onButtonClick={handleReadedBook}
+                onButtoncrow={handleBookClick}
+              />
+            ))}
+          </>
+        ) : (
+          <div>
+            <h1>Search to Book!</h1>
+          </div>
+        )}
+      </div>
     </Container>
   );
 };

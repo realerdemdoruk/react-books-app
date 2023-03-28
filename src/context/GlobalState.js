@@ -1,14 +1,16 @@
-import { createContext, useState, useMemo } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const GlobalContext = createContext();
 export const GlobalProvider = (props) => {
   const [search, setSearch] = useState('React');
   const [books, setBooks] = useState([]);
-
   const [selectedBook, setSelectedBook] = useState([]);
-
   const [readedBook, setReadedBook] = useState([]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [search]);
 
   function handleBookClick(books) {
     const isExist = selectedBook.find((book) => book.id === books.id);
@@ -39,7 +41,7 @@ export const GlobalProvider = (props) => {
   }
 
   const fetchBooks = async () => {
-    const result = await axios
+    await axios
       .get(
         `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBuIRxGUvT72g_xACmH8NkaPVS1kF45PFM`
       )
@@ -60,7 +62,6 @@ export const GlobalProvider = (props) => {
         setSelectedBook,
         handleBookClick,
         fetchBooks,
-
         readedBook,
         handleReadedBook,
         handleDeleteReadedBook,
