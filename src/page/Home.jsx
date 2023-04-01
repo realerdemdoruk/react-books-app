@@ -8,14 +8,7 @@ const Home = () => {
     useContext(GlobalContext);
 
   return (
-    <Container
-      className="
-    d-flex
-    flex-column
-    justify-content-center
-    gap-3
-    "
-    >
+    <Container className=" d-flex flex-column justify-content-center gap-3">
       <div className="row">
         <div className="col"></div>
         <div className="col"></div>
@@ -23,31 +16,23 @@ const Home = () => {
           <input
             type="text"
             placeholder="Search to Book"
-            className="
-            p-2
-            rounded
-            "
+            className="p-2 rounded mt-5"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
 
-      <div
-        className="row 
-      d-flex
-      flex-wrap
-      justify-content-center
-      gap-5
-      "
-      >
+      <div className="row d-flex flex-wrap justify-content-center gap-5">
         {search ? (
           <>
+            <p className="mt-5">Total Books: {books.length}</p>
             {books.map((item) => (
               <BookCard
                 key={item.id}
                 item={item}
                 buttonText="Readed"
+                showHeartButton={true}
                 onButtonClick={handleReadedBook}
                 onButtoncrow={handleBookClick}
               />

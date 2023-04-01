@@ -3,10 +3,11 @@ import axios from 'axios';
 
 export const GlobalContext = createContext();
 export const GlobalProvider = (props) => {
-  const [search, setSearch] = useState('React');
+  const [search, setSearch] = useState('Anna Karenina');
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState([]);
   const [readedBook, setReadedBook] = useState([]);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     fetchBooks();
@@ -15,7 +16,7 @@ export const GlobalProvider = (props) => {
   function handleBookClick(books) {
     const isExist = selectedBook.find((book) => book.id === books.id);
     if (isExist) {
-      alert('Bu kitap zaten seçilmiş');
+      alert('This book has already been selected');
     }
     if (!selectedBook.includes(books)) {
       setSelectedBook([...selectedBook, books]);
@@ -29,7 +30,7 @@ export const GlobalProvider = (props) => {
   function handleReadedBook(books) {
     const isExist = readedBook.find((book) => book.id === books.id);
     if (isExist) {
-      alert('Bu kitap zaten okunmuş');
+      alert('This book has already been read');
     }
     if (!readedBook.includes(books)) {
       setReadedBook([...readedBook, books]);
@@ -39,6 +40,10 @@ export const GlobalProvider = (props) => {
   function handleDeleteReadedBook(id) {
     setReadedBook(readedBook.filter((book) => book.id !== id));
   }
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
   const fetchBooks = async () => {
     await axios
@@ -65,6 +70,8 @@ export const GlobalProvider = (props) => {
         readedBook,
         handleReadedBook,
         handleDeleteReadedBook,
+        showFullDescription,
+        toggleDescription,
       }}
     >
       {props.children}
