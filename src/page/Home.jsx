@@ -24,14 +24,14 @@ const Home = () => {
       </div>
 
       <div className="row d-flex flex-wrap justify-content-center gap-5">
-        {search ? (
+        {books ? (
           <>
-            <p className="mt-5">Total Books: {books.length}</p>
+            <p className="mt-5">Toplam Kitap: {books.length}</p>
             {books.map((item) => (
               <BookCard
                 key={item.id}
                 item={item}
-                buttonText="Readed"
+                buttonText="Okundu Olarak İşaretle"
                 showHeartButton={true}
                 onButtonClick={handleReadedBook}
                 onButtoncrow={handleBookClick}
@@ -40,7 +40,7 @@ const Home = () => {
           </>
         ) : (
           <div>
-            <h1>Search to Book!</h1>
+            <h1>Kitap Araştır!</h1>
           </div>
         )}
       </div>

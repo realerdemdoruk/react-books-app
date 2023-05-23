@@ -7,6 +7,8 @@
 .card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #f8f8f8;
+  transform: scale(1.01);
+  transition: 0.3s;
 }
 
 .card-title {
@@ -47,3 +49,23 @@ p {
 .icon {
   cursor: pointer;
 }
+
+button {
+  background-color: #333 !important;
+  color: white !important;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* cadetblue     background-color: lightsteelblue; */
+
+/* body { */
+/* background-color: #393e46; */
+/* } */
+/*  */

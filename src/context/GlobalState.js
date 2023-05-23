@@ -16,7 +16,7 @@ export const GlobalProvider = (props) => {
   function handleBookClick(books) {
     const isExist = selectedBook.find((book) => book.id === books.id);
     if (isExist) {
-      alert('This book has already been selected');
+      alert('Bu kitap zaten seçili.');
     }
     if (!selectedBook.includes(books)) {
       setSelectedBook([...selectedBook, books]);
@@ -30,7 +30,7 @@ export const GlobalProvider = (props) => {
   function handleReadedBook(books) {
     const isExist = readedBook.find((book) => book.id === books.id);
     if (isExist) {
-      alert('This book has already been read');
+      alert('Bu kitap zaten okundu olarak işaretlendi.');
     }
     if (!readedBook.includes(books)) {
       setReadedBook([...readedBook, books]);

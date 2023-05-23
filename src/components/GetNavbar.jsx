@@ -18,7 +18,7 @@ const GetNavbar = () => {
                 to="/"
                 style={{ textDecoration: 'none' }}
               >
-                <h6>Home</h6>
+                <h6>Ana Sayfa</h6>
               </Link>
             </Nav.Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,7 +30,7 @@ const GetNavbar = () => {
                     to="/readed"
                     style={{ textDecoration: 'none' }}
                   >
-                    <h6>Readed</h6>
+                    <h6>Okunanlar</h6>
                   </Link>
                 </Nav.Link>
                 <Nav.Link>

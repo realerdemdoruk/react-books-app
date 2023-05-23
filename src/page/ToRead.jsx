@@ -11,19 +11,19 @@ const ToRead = () => {
       <div className="row d-flex flex-wrap justify-content-center gap-5">
         {selectedBook ? (
           <>
-            <p className="mt-5">Total Books: {selectedBook.length}</p>
+            <p className="mt-5">Toplam Okunacak Kitap: {selectedBook.length}</p>
             {selectedBook.map((item) => (
               <BookCard
                 key={item.id}
                 item={item}
-                buttonText="Delete"
+                buttonText="Kitabı Kaldır"
                 onButtonClick={() => handleDeleteBook(item.id)}
               />
             ))}
           </>
         ) : (
           <div>
-            <h1>Search to Book!</h1>
+            <h1>Kitap Araştır!</h1>
           </div>
         )}
       </div>

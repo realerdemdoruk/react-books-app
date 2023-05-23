@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
 import { AiOutlineHeart } from 'react-icons/ai';
-import './style.css';
+import '../style.css';
 
 const BookCard = ({
   item,
@@ -10,7 +10,12 @@ const BookCard = ({
   onButtoncrow,
   showHeartButton,
 }) => {
-  const { showFullDescription, toggleDescription } = useContext(GlobalContext);
+  const { toggleDescription } = useContext(GlobalContext);
+  const [showDescription, setShowDescription] = useState(false);
+  const toggleBookDescription = () => {
+    setShowDescription(!showDescription);
+  };
+
   return (
     <>
       <div className="card col-md-3 col-10 d-flex ">
@@ -22,58 +27,55 @@ const BookCard = ({
                   ? item.volumeInfo.imageLinks.thumbnail
                   : 'https://via.placeholder.com/150'
               }
-              alt={item.volumeInfo.title ? item.volumeInfo.title : 'Book Cover'}
+              alt={
+                item.volumeInfo.title ? item.volumeInfo.title : 'Kitap Kapak'
+              }
             />
           </div>
           <h5 className="card-title text-center mt-2">
-            {item.volumeInfo.title}
+            {item.volumeInfo.title ? item.volumeInfo.title : 'Kitap Adı'}
           </h5>
 
           {item.volumeInfo.description && (
             <p>
-              {showFullDescription
+              {showDescription
                 ? item.volumeInfo.description
                 : item.volumeInfo.description.substring(0, 100)}
               <br />
               {item.volumeInfo.description.length > 100 && (
-                <button onClick={toggleDescription}>
-                  {showFullDescription ? 'Show less' : 'Show more'}
-                </button>
+                <div className="d-flex justify-content-center mt-2">
+                  <button onClick={toggleBookDescription}>
+                    {showDescription ? 'Daha Az Göster' : 'Daha Fazla Göster'}
+                  </button>
+                </div>
               )}
             </p>
           )}
-
           <p>
-            Publis Date:
+            Yayın Tarihi:
             {item.volumeInfo.publishedDate
               ? item.volumeInfo.publishedDate
-              : 'No Date'}
+              : 'Tarih Yok'}
           </p>
-
           <p>
-            Categories:
+            Kategoriler:
             {item.volumeInfo.categories
               ? item.volumeInfo.categories
-              : 'No Categories'}
+              : 'Kategori Yok'}
           </p>
-
           <p>
-            Page Count:
+            Sayfa Sayısı:
             {item.volumeInfo.pageCount
               ? item.volumeInfo.pageCount
-              : 'No Page Count'}
+              : 'Sayfa Sayısı Yok'}
           </p>
-
           <p>
-            Language:
-            {item.volumeInfo.language
-              ? item.volumeInfo.language
-              : 'No Language'}
+            Dil:
+            {item.volumeInfo.language ? item.volumeInfo.language : 'Dil Yok'}
           </p>
-
           <p>
-            Authors:
-            {item.volumeInfo.authors ? item.volumeInfo.authors : 'No Author'}
+            Yazar:
+            {item.volumeInfo.authors ? item.volumeInfo.authors : 'Yazar Yok'}
           </p>
           <div className="d-flex justify-content-evenly align-items-center">
             {showHeartButton && (
@@ -82,10 +84,7 @@ const BookCard = ({
                 onClick={() => onButtoncrow(item)}
               />
             )}
-            <button
-              className="btn btn-primary"
-              onClick={() => onButtonClick(item)}
-            >
+            <button className="btn" onClick={() => onButtonClick(item)}>
               {buttonText}
             </button>
           </div>
