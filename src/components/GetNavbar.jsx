@@ -8,9 +8,9 @@ import { AiOutlineHeart } from 'react-icons/ai';
 
 const GetNavbar = () => {
   return (
-    <Container fluid className=" bg-light sticky-top">
+    <Container fluid className=" bg-white sticky-top">
       <div className="w-100 justify-content-center d-flex">
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="white" expand="lg">
           <Container className="mx-auto  text-center ">
             <Nav.Link>
               <Link

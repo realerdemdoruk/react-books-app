@@ -10,7 +10,7 @@ const BookCard = ({
   onButtoncrow,
   showHeartButton,
 }) => {
-  const { toggleDescription } = useContext(GlobalContext);
+ useContext(GlobalContext);
   const [showDescription, setShowDescription] = useState(false);
   const toggleBookDescription = () => {
     setShowDescription(!showDescription);
@@ -44,7 +44,7 @@ const BookCard = ({
               <br />
               {item.volumeInfo.description.length > 100 && (
                 <div className="d-flex justify-content-center mt-2">
-                  <button onClick={toggleBookDescription}>
+                  <button className='buttons' onClick={toggleBookDescription}>
                     {showDescription ? 'Daha Az Göster' : 'Daha Fazla Göster'}
                   </button>
                 </div>
@@ -52,29 +52,29 @@ const BookCard = ({
             </p>
           )}
           <p>
-            Yayın Tarihi:
+            <b>Yayın Tarihi:</b>
             {item.volumeInfo.publishedDate
               ? item.volumeInfo.publishedDate
               : 'Tarih Yok'}
           </p>
           <p>
-            Kategoriler:
+            <b>Kategoriler:</b>
             {item.volumeInfo.categories
               ? item.volumeInfo.categories
               : 'Kategori Yok'}
           </p>
           <p>
-            Sayfa Sayısı:
+            <b>Sayfa Sayısı:</b>
             {item.volumeInfo.pageCount
               ? item.volumeInfo.pageCount
               : 'Sayfa Sayısı Yok'}
           </p>
           <p>
-            Dil:
+            <b>Dil:</b>
             {item.volumeInfo.language ? item.volumeInfo.language : 'Dil Yok'}
           </p>
           <p>
-            Yazar:
+            <b>Yazar:</b>
             {item.volumeInfo.authors ? item.volumeInfo.authors : 'Yazar Yok'}
           </p>
           <div className="d-flex justify-content-evenly align-items-center">
@@ -84,7 +84,7 @@ const BookCard = ({
                 onClick={() => onButtoncrow(item)}
               />
             )}
-            <button className="btn" onClick={() => onButtonClick(item)}>
+            <button className="btn buttons" onClick={() => onButtonClick(item)}>
               {buttonText}
             </button>
           </div>

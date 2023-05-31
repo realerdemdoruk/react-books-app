@@ -1,5 +1,4 @@
 .card {
-  border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -9,6 +8,17 @@
   background-color: #f8f8f8;
   transform: scale(1.01);
   transition: 0.3s;
+}
+
+input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  font-style: italic;
+  font-family: "Open Sans", sans-serif;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .card-title {
@@ -28,8 +38,8 @@
 }
 
 .card img {
-  width: 70%;
-  height: 70%;
+  width: 60%;
+  height: 60%;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -40,7 +50,7 @@ h5 {
 }
 
 p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   color: #333;
   line-height: 1.5;
@@ -50,7 +60,7 @@ p {
   cursor: pointer;
 }
 
-button {
+.buttons {
   background-color: #333 !important;
   color: white !important;
   border: none;
@@ -63,9 +73,3 @@ button {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-/* cadetblue     background-color: lightsteelblue; */
-
-/* body { */
-/* background-color: #393e46; */
-/* } */
-/*  */

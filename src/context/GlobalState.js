@@ -13,6 +13,9 @@ export const GlobalProvider = (props) => {
     fetchBooks();
   }, [search]);
 
+
+
+
   function handleBookClick(books) {
     const isExist = selectedBook.find((book) => book.id === books.id);
     if (isExist) {
@@ -71,7 +74,7 @@ export const GlobalProvider = (props) => {
         handleReadedBook,
         handleDeleteReadedBook,
         showFullDescription,
-        toggleDescription,
+      
       }}
     >
       {props.children}
