@@ -151,6 +151,16 @@
   transform: translateY(-2px);
 }
 
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
 /* Scrollbar stilleri */
 .book-description::-webkit-scrollbar {
   width: 6px;

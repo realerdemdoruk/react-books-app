@@ -1,18 +1,21 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from '../page/Home';
-import Readed from '../page/Readed';
-import ToRead from '../page/ToRead';
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import Home from "../page/Home";
+import Readed from "../page/Readed";
+import ToRead from "../page/ToRead";
 
-function AppRoutes() {
+const AppRoutes = () => {
+  const location = useLocation();
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/readed" element={<Readed />} />
-      <Route path="/toread" element={<ToRead />} />
-      <Route path="*" element={<h1>404 Not Found</h1>} />
-    </Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/readed" element={<Readed />} />
+        <Route path="/toread" element={<ToRead />} />
+      </Routes>
+    </AnimatePresence>
   );
-}
+};
 
 export default AppRoutes;

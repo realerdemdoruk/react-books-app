@@ -1,8 +1,80 @@
 import React from "react";
-import "./BookCard.css";
-import { FaBookReader, FaRegBookmark } from "react-icons/fa";
+import "../styles/BookCard.css";
+import { FaBookReader, FaRegBookmark, FaTrash } from "react-icons/fa";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BookCard = ({ book, onReadClick, onToReadClick }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleReadClick = (book) => {
+    if (location.pathname === "/readed") {
+      onReadClick(book.id);
+    } else if (location.pathname === "/toread") {
+      onReadClick(book);
+      navigate("/readed");
+    } else {
+      onReadClick(book);
+      navigate("/readed");
+    }
+  };
+
+  const handleToReadClick = (book) => {
+    if (location.pathname === "/toread") {
+      onToReadClick(book.id);
+    } else {
+      onToReadClick(book);
+      navigate("/toread");
+    }
+  };
+
+  const renderButtons = () => {
+    if (location.pathname === "/readed") {
+      return (
+        <button
+          className="action-button delete-button"
+          onClick={() => handleReadClick(book)}
+        >
+          <FaTrash /> Kaldır
+        </button>
+      );
+    } else if (location.pathname === "/toread") {
+      return (
+        <>
+          <button
+            className="action-button delete-button"
+            onClick={() => handleToReadClick(book)}
+          >
+            <FaTrash /> Kaldır
+          </button>
+          <button
+            className="action-button read-button"
+            onClick={() => handleReadClick(book)}
+          >
+            <FaBookReader /> Okundu
+          </button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <button
+            className="action-button read-button"
+            onClick={() => handleReadClick(book)}
+          >
+            <FaBookReader /> Okundu
+          </button>
+          <button
+            className="action-button to-read-button"
+            onClick={() => handleToReadClick(book)}
+          >
+            <FaRegBookmark /> Okuyacağım
+          </button>
+        </>
+      );
+    }
+  };
+
   return (
     <div className="book-card">
       <div className="book-card-inner">
@@ -41,20 +113,7 @@ const BookCard = ({ book, onReadClick, onToReadClick }) => {
               {book.volumeInfo.pageCount || "Belirtilmemiş"}
             </p>
           </div>
-          <div className="book-actions">
-            <button
-              className="action-button read-button"
-              onClick={() => onReadClick(book)}
-            >
-              <FaBookReader /> Okundu
-            </button>
-            <button
-              className="action-button to-read-button"
-              onClick={() => onToReadClick(book)}
-            >
-              <FaRegBookmark /> Okuyacağım
-            </button>
-          </div>
+          <div className="book-actions">{renderButtons()}</div>
         </div>
       </div>
     </div>

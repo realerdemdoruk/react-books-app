@@ -1,34 +1,32 @@
-import React, { useContext } from 'react';
-import { GlobalContext } from '../context/GlobalState';
-import { Container } from 'react-bootstrap';
-import BookCard from '../components/BookCard';
+import React, { useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
+import BookGrid from "../components/BookGrid";
+import PageTransition from "../components/PageTransition";
+import "../styles/PageTitle.css";
 
 const Readed = () => {
-  const { readedBook, handleDeleteReadedBook } = useContext(GlobalContext);
+  const { readedBooks, removeFromReaded } = useContext(GlobalContext);
 
   return (
-    <Container className=" d-flex flex-column justify-content-center gap-3">
-      <div className="row  d-flex flex-wrap justify-content-center gap-5">
-        <p className="mt-5">Toplam Okunan Kitap: {readedBook.length}</p>
-
-        {readedBook ? (
-          <>
-            {readedBook.map((item) => (
-              <BookCard
-                key={item.id}
-                item={item}
-                buttonText="Kitabı Kaldır"
-                onButtonClick={() => handleDeleteReadedBook(item.id)}
-              />
-            ))}
-          </>
+    <PageTransition>
+      <div className="container">
+        <div className="page-title-container">
+          <h1 className="page-title">Okuduğum Kitaplar</h1>
+          <p className="page-subtitle">
+            Şimdiye kadar {readedBooks.length} kitap okudunuz
+          </p>
+        </div>
+        {readedBooks && readedBooks.length > 0 ? (
+          <BookGrid
+            books={readedBooks}
+            onReadClick={removeFromReaded}
+            onToReadClick={() => {}}
+          />
         ) : (
-          <div>
-            <h1>Kitap Araştır!</h1>
-          </div>
+          <p className="text-center">Henüz okunmuş kitap bulunmuyor.</p>
         )}
       </div>
-    </Container>
+    </PageTransition>
   );
 };
 
