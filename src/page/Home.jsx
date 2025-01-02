@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import PageTransition from "../components/PageTransition";
 import BookGrid from "../components/BookGrid";
-import "./Home.css";
+import "../styles/Home.css";
 
 const Home = () => {
   const { books, loading, addToReaded, addToRead, searchBooks } =

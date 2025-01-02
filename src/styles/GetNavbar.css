@@ -11,6 +11,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.navbar-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,13 +33,36 @@
   color: #3498db;
 }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Desktop görünümü için */
+@media (min-width: 769px) {
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-top {
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 }
 
 .nav-link {
@@ -46,6 +72,9 @@
   padding: 8px 16px;
   border-radius: 6px;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-link:hover {
@@ -58,20 +87,48 @@
   background-color: #e3f2fd;
 }
 
-@media (max-width: 640px) {
-  .navbar-container {
-    flex-direction: column;
-    gap: 15px;
-    padding: 10px 20px;
+/* Mobil görünüm için */
+@media (max-width: 768px) {
+  .menu-button {
+    display: block;
   }
 
   .nav-links {
+    display: none;
     width: 100%;
-    justify-content: center;
+    flex-direction: column;
+    padding: 0;
+    margin-top: 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
   }
 
   .nav-link {
-    padding: 6px 12px;
-    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    border-radius: 0;
+    border-bottom: 1px solid #eee;
   }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-links.active {
+  animation: slideDown 0.3s ease forwards;
 }
