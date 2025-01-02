@@ -1,83 +1,71 @@
-import { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { createContext, useEffect, useState } from "react";
 
 export const GlobalContext = createContext();
-export const GlobalProvider = (props) => {
-  const [search, setSearch] = useState('Anna Karenina');
+
+export const GlobalProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState([]);
-  const [readedBook, setReadedBook] = useState([]);
-  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBooks = async (query = "react") => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
+      );
+      const data = await response.json();
+      setBooks(data.items || []);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+      setBooks([]);
+      setLoading(false);
+    }
+  };
+
+  const searchBooks = (query) => {
+    if (query.trim()) {
+      fetchBooks(query);
+    }
+  };
 
   useEffect(() => {
     fetchBooks();
-  }, [search]);
+  }, []);
 
+  const [readedBooks, setReadedBooks] = useState([]);
+  const [toReadBooks, setToReadBooks] = useState([]);
 
-
-
-  function handleBookClick(books) {
-    const isExist = selectedBook.find((book) => book.id === books.id);
-    if (isExist) {
-      alert('Bu kitap zaten seçili.');
-    }
-    if (!selectedBook.includes(books)) {
-      setSelectedBook([...selectedBook, books]);
-    }
-  }
-
-  function handleDeleteBook(id) {
-    setSelectedBook(selectedBook.filter((book) => book.id !== id));
-  }
-
-  function handleReadedBook(books) {
-    const isExist = readedBook.find((book) => book.id === books.id);
-    if (isExist) {
-      alert('Bu kitap zaten okundu olarak işaretlendi.');
-    }
-    if (!readedBook.includes(books)) {
-      setReadedBook([...readedBook, books]);
-    }
-  }
-
-  function handleDeleteReadedBook(id) {
-    setReadedBook(readedBook.filter((book) => book.id !== id));
-  }
-
-  const toggleDescription = () => {
-    setShowFullDescription(!showFullDescription);
+  const addToReaded = (book) => {
+    setReadedBooks([...readedBooks, book]);
   };
 
-  const fetchBooks = async () => {
-    await axios
-      .get(
-        `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBuIRxGUvT72g_xACmH8NkaPVS1kF45PFM`
-      )
-      .then((res) => {
-        setBooks(res.data.items);
-      });
+  const removeFromReaded = (id) => {
+    setReadedBooks(readedBooks.filter((book) => book.id !== id));
+  };
+
+  const addToRead = (book) => {
+    setToReadBooks([...toReadBooks, book]);
+  };
+
+  const removeFromToRead = (id) => {
+    setToReadBooks(toReadBooks.filter((book) => book.id !== id));
   };
 
   return (
     <GlobalContext.Provider
       value={{
-        search,
-        setSearch,
         books,
-        setBooks,
-        handleDeleteBook,
-        selectedBook,
-        setSelectedBook,
-        handleBookClick,
-        fetchBooks,
-        readedBook,
-        handleReadedBook,
-        handleDeleteReadedBook,
-        showFullDescription,
-      
+        loading,
+        readedBooks,
+        toReadBooks,
+        addToReaded,
+        removeFromReaded,
+        addToRead,
+        removeFromToRead,
+        searchBooks,
       }}
     >
-      {props.children}
+      {children}
     </GlobalContext.Provider>
   );
 };

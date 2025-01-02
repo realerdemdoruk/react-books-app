@@ -1,50 +1,51 @@
-import React, { useContext } from 'react';
-import { Container } from 'react-bootstrap';
-import BookCard from '../components/BookCard';
-import { GlobalContext } from '../context/GlobalState';
+import React, { useContext, useState } from "react";
+import { GlobalContext } from "../context/GlobalState";
+import BookCard from "../components/BookCard";
+import "./Home.css";
 
 const Home = () => {
-  const { search, setSearch, books, handleBookClick, handleReadedBook } =
+  const { books, loading, addToReaded, addToRead, searchBooks } =
     useContext(GlobalContext);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    searchBooks(searchTerm);
+  };
 
   return (
-    <Container className=" d-flex flex-column justify-content-center gap-3">
-      <div className="row">
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col">
+    <div className="container">
+      <div className="search-container">
+        <form onSubmit={handleSearch}>
           <input
             type="text"
-            placeholder="Search to Book"
-            className="p-2 rounded mt-5"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            className="search-input"
+            placeholder="Kitap ara..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
+          <button type="submit" className="search-button">
+            Ara
+          </button>
+        </form>
       </div>
 
-      <div className="row d-flex flex-wrap justify-content-center gap-5">
-        {books ? (
-          <>
-            <p className="mt-5">Toplam Kitap: {books.length}</p>
-            {books.map((item) => (
+      {loading ? (
+        <div className="loading">Yükleniyor...</div>
+      ) : (
+        <div className="books-grid">
+          {books &&
+            books.map((book) => (
               <BookCard
-                key={item.id}
-                item={item}
-                buttonText="Okundu Olarak İşaretle"
-                showHeartButton={true}
-                onButtonClick={handleReadedBook}
-                onButtoncrow={handleBookClick}
+                key={book.id}
+                book={book}
+                onReadClick={addToReaded}
+                onToReadClick={addToRead}
               />
             ))}
-          </>
-        ) : (
-          <div>
-            <h1>Kitap Araştır!</h1>
-          </div>
-        )}
-      </div>
-    </Container>
+        </div>
+      )}
+    </div>
   );
 };
 

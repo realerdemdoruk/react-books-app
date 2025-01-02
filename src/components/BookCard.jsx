@@ -1,96 +1,63 @@
-import { useState, useContext } from 'react';
-import { GlobalContext } from '../context/GlobalState';
-import { AiOutlineHeart } from 'react-icons/ai';
-import '../style.css';
+import React from "react";
+import "./BookCard.css";
+import { FaBookReader, FaRegBookmark } from "react-icons/fa";
 
-const BookCard = ({
-  item,
-  onButtonClick,
-  buttonText,
-  onButtoncrow,
-  showHeartButton,
-}) => {
- useContext(GlobalContext);
-  const [showDescription, setShowDescription] = useState(false);
-  const toggleBookDescription = () => {
-    setShowDescription(!showDescription);
-  };
-
+const BookCard = ({ book, onReadClick, onToReadClick }) => {
   return (
-    <>
-      <div className="card col-md-3 col-10 d-flex ">
-        <div className="card-body ">
-          <div className="d-flex justify-content-center">
+    <div className="book-card">
+      <div className="book-card-inner">
+        <div className="book-card-front">
+          <div className="book-image-container">
             <img
               src={
-                item.volumeInfo.imageLinks
-                  ? item.volumeInfo.imageLinks.thumbnail
-                  : 'https://via.placeholder.com/150'
+                book.volumeInfo.imageLinks?.thumbnail ||
+                "https://via.placeholder.com/128x190?text=Resim+Yok"
               }
-              alt={
-                item.volumeInfo.title ? item.volumeInfo.title : 'Kitap Kapak'
-              }
+              alt={book.volumeInfo.title}
+              className="book-image"
             />
+            <div className="book-overlay">
+              <h3 className="book-title">{book.volumeInfo.title}</h3>
+              <p className="book-author">
+                {book.volumeInfo.authors?.join(", ") || "Yazar bilgisi yok"}
+              </p>
+            </div>
           </div>
-          <h5 className="card-title text-center mt-2">
-            {item.volumeInfo.title ? item.volumeInfo.title : 'Kitap Adı'}
-          </h5>
-
-          {item.volumeInfo.description && (
+        </div>
+        <div className="book-card-back">
+          <h3 className="book-title">{book.volumeInfo.title}</h3>
+          <p className="book-description">
+            {book.volumeInfo.description?.substring(0, 200)}
+            {book.volumeInfo.description?.length > 200 ? "..." : ""}
+          </p>
+          <div className="book-details">
             <p>
-              {showDescription
-                ? item.volumeInfo.description
-                : item.volumeInfo.description.substring(0, 100)}
-              <br />
-              {item.volumeInfo.description.length > 100 && (
-                <div className="d-flex justify-content-center mt-2">
-                  <button className='buttons' onClick={toggleBookDescription}>
-                    {showDescription ? 'Daha Az Göster' : 'Daha Fazla Göster'}
-                  </button>
-                </div>
-              )}
+              <strong>Yayın Tarihi:</strong>{" "}
+              {book.volumeInfo.publishedDate?.substring(0, 4) ||
+                "Belirtilmemiş"}
             </p>
-          )}
-          <p>
-            <b>Yayın Tarihi:</b>
-            {item.volumeInfo.publishedDate
-              ? item.volumeInfo.publishedDate
-              : 'Tarih Yok'}
-          </p>
-          <p>
-            <b>Kategoriler:</b>
-            {item.volumeInfo.categories
-              ? item.volumeInfo.categories
-              : 'Kategori Yok'}
-          </p>
-          <p>
-            <b>Sayfa Sayısı:</b>
-            {item.volumeInfo.pageCount
-              ? item.volumeInfo.pageCount
-              : 'Sayfa Sayısı Yok'}
-          </p>
-          <p>
-            <b>Dil:</b>
-            {item.volumeInfo.language ? item.volumeInfo.language : 'Dil Yok'}
-          </p>
-          <p>
-            <b>Yazar:</b>
-            {item.volumeInfo.authors ? item.volumeInfo.authors : 'Yazar Yok'}
-          </p>
-          <div className="d-flex justify-content-evenly align-items-center">
-            {showHeartButton && (
-              <AiOutlineHeart
-                className="icon"
-                onClick={() => onButtoncrow(item)}
-              />
-            )}
-            <button className="btn buttons" onClick={() => onButtonClick(item)}>
-              {buttonText}
+            <p>
+              <strong>Sayfa Sayısı:</strong>{" "}
+              {book.volumeInfo.pageCount || "Belirtilmemiş"}
+            </p>
+          </div>
+          <div className="book-actions">
+            <button
+              className="action-button read-button"
+              onClick={() => onReadClick(book)}
+            >
+              <FaBookReader /> Okundu
+            </button>
+            <button
+              className="action-button to-read-button"
+              onClick={() => onToReadClick(book)}
+            >
+              <FaRegBookmark /> Okuyacağım
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
