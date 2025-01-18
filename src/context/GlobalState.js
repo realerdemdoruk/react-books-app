@@ -34,12 +34,25 @@ export const GlobalProvider = ({ children }) => {
       const response = await fetch(
         `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=20`
       );
+
+      if (response.status === 429) {
+        console.error("Rate limit exceeded. Please wait a moment before trying again.");
+        setBooks([]);
+        // Add a delay before allowing next request
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
       setBooks(data.items || []);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching books:", error);
       setBooks([]);
+    } finally {
       setLoading(false);
     }
   };

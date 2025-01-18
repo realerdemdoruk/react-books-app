@@ -3,6 +3,25 @@ import "../styles/BookCard.css";
 import { FaBookReader, FaRegBookmark, FaTrash } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 
+const getHighResImage = (imageLinks) => {
+  if (!imageLinks) return "https://placehold.co/200x300/lightgray/gray?text=Resim+Bulunamadi";
+  
+  // Thumbnail URL'sini yüksek kaliteli versiyona dönüştür
+  let imageUrl = imageLinks.thumbnail || imageLinks.smallThumbnail;
+  if (imageUrl) {
+    // Zoom seviyesini artır
+    imageUrl = imageUrl.replace('zoom=1', 'zoom=3');
+    // Resim boyutunu artır
+    imageUrl = imageUrl.replace('&edge=curl', '');
+    // http -> https
+    imageUrl = imageUrl.replace('http:', 'https:');
+    // Resim boyutunu büyüt
+    return imageUrl.replace('w=128', 'w=512').replace('h=192', 'h=768');
+  }
+  
+  return "https://placehold.co/200x300/lightgray/gray?text=Resim+Bulunamadi";
+};
+
 const BookCard = ({ book, onReadClick, onToReadClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,10 +100,7 @@ const BookCard = ({ book, onReadClick, onToReadClick }) => {
         <div className="book-card-front">
           <div className="book-image-container">
             <img
-              src={
-                book.volumeInfo.imageLinks?.thumbnail ||
-                "https://via.placeholder.com/128x190?text=Resim+Yok"
-              }
+              src={getHighResImage(book.volumeInfo.imageLinks)}
               alt={book.volumeInfo.title}
               className="book-image"
             />
